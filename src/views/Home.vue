@@ -1,30 +1,47 @@
 <template>
-  <!-- <pre>{{ data }}</pre> -->
-  <div v-for="variant in data" :key="variant.id">
-  <h3>{{ variant.alleleName }}</h3>
-      <p>Significance: {{ variant.significance }}</p>
-      <p>Genotype: {{ variant.genotype }}</p>
-      <ul>
-        <p>HGVS Notation:</p>
-        <li v-for="notation in variant.hgvs">{{ notation }}</li>
-      </ul>
-      <p>External Sources:</p>
-      <ul>
-        <li v-for="source in variant.externalSourceEntries" :key="source.id">
-          <a :href="source.link" target="_blank">{{ source.database.name }}</a> - Significance: {{ source.significance }}
-        </li>
-      </ul>
+  <div class="main">
+    <DataTable :items="items" :data="data"/>
   </div>
 </template>
 
 <script setup>
+import DataTable from '@/components/DataTable.vue';
 import { computed } from 'vue'
 import userData from '../assets/variants.json'
 
+const items = [
+  {
+    id: 1,
+    title: "Variant Name"
+  },
+  {
+    id: 2,
+    title: "Significance"
+  },
+  {
+    id: 3,
+    title: "Genotype"
+  },
+  {
+    id: 4,
+    title: "HGVS Notation"
+  },
+  {
+    id: 5,
+    title: "External Sources"
+  }
+]
+
 const data = computed(() => {
-    console.log(userData);
+  console.log(userData)
   return userData.variants
 })
 </script>
 
-<style scoped></style>
+<style scoped>
+.main {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+</style>
