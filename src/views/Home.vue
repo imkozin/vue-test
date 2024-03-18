@@ -1,41 +1,41 @@
 <template>
   <div class="main">
-    <DataTable :items="items" :data="data"/>
+    <DataTable :items="items" :data="data" />
   </div>
 </template>
 
 <script setup>
-import DataTable from '@/components/DataTable.vue';
-import { computed } from 'vue'
-import userData from '../assets/variants.json'
+import DataTable from "@/components/DataTable.vue";
+import { computed } from "vue";
+import userData from "../assets/variants.json";
 
 const items = [
   {
     id: 1,
-    title: "Variant Name"
+    title: 'Variant Name',
   },
   {
     id: 2,
-    title: "Significance"
+    title: 'Significance',
   },
   {
     id: 3,
-    title: "Genotype"
+    title: 'Genotype',
   },
   {
     id: 4,
-    title: "HGVS Notation"
+    title: 'HGVS Notation',
   },
   {
     id: 5,
-    title: "External Sources"
-  }
-]
+    title: 'External Sources',
+  },
+];
 
 const data = computed(() => {
-  console.log(userData)
-  return userData.variants
-})
+  console.log(userData);
+  return userData.variants;
+});
 </script>
 
 <style scoped>

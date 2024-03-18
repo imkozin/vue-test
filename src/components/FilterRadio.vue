@@ -19,4 +19,8 @@ const filter = (e) => {
 
 </script>
 
-<style scoped></style>
+<style scoped>
+span {
+  font-weight: bold;
+}
+</style>
