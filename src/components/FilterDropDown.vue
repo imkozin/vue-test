@@ -1,29 +1,24 @@
 <template>
   <div class="dropdown">
-    <select>
-      <option>-- Select Significance --</option>
-      <option>PATHOGENIC</option>
-      <option>LIKELY_PATHOGENIC</option>
-      <option>BENIGN</option>
-      <option>LIKELY_BENIGN</option>
-      <option>UNDEFINED</option>
-      <option>UNCERTAIN</option>
+    <select @change="select">
+      <option value="" selected>-- Select Significance --</option>
+      <option value="pathogenic">PATHOGENIC</option>
+      <option value="likely_pathogenic">LIKELY_PATHOGENIC</option>
+      <option value="benign">BENIGN</option>
+      <option value="likely_benign">LIKELY_BENIGN</option>
+      <option value="undefined">UNDEFINED</option>
+      <option value="uncertain">UNCERTAIN</option>
     </select>
-    </div>
+  </div>
 </template>
 
 <script setup>
-import { ref } from 'vue'
+const emit = defineEmits(['select'])
 
-const show = ref(false)
+const select = (e) => {
+    emit('select', e.target.value)
+}
 </script>
 
 <style scoped>
-.dropdown {
-  position: relative;
-  display: flex;
-  align-items: center;
-}
-
-
 </style>

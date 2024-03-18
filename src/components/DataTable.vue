@@ -4,7 +4,7 @@
       <SearchForm @search="handleSearch" />
 
       <FilterRadio @filter="handleRadioFilter" />
-      <FilterDropDown />
+      <FilterDropDown @select="handleSelectFilter"/>
     </div>
     <table>
       <thead>
@@ -49,6 +49,7 @@ import FilterRadio from './FilterRadio.vue'
 
 const searchFilter = ref('')
 const radioFilter = ref('')
+let selectFilter = ref('')
 
 const props = defineProps({
   items: {
@@ -85,6 +86,12 @@ const filteredData = computed(() => {
           .includes(searchFilter.value.toLowerCase()))
   }
 
+  if (selectFilter.value) {
+    data = data.filter((item) => {
+      return item.significance.toLowerCase() === selectFilter.value
+    })
+  }
+
   return data
 })
 
@@ -94,6 +101,11 @@ const handleSearch = (search) => {
 
 const handleRadioFilter = (filter) => {
   radioFilter.value = filter
+}
+
+const handleSelectFilter = (select) => {
+  console.log(select);
+  selectFilter.value = select
 }
 </script>
 
