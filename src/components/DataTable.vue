@@ -4,7 +4,7 @@
       <SearchForm @search="handleSearch" />
 
       <FilterRadio @filter="handleRadioFilter" />
-      <FilterDropDown @select="handleSelectFilter"/>
+      <FilterDropDown @select="handleSelectFilter" />
     </div>
     <table>
       <thead>
@@ -70,20 +70,25 @@ const filteredData = computed(() => {
       data = data.filter((item) => {
         return item.genotype.toLowerCase() === 'heterozygote'
       })
-      break;
+      break
     case 'homozygote':
       data = data.filter((item) => {
         return item.genotype.toLowerCase() === 'homozygote'
       })
-      break;
+      break
   }
-  
-  if (searchFilter !== '') {
-    data = data.filter(
-      (item) =>
-        item.alleleName
+
+  if (searchFilter.value !== '') {
+    console.log(searchFilter.value)
+    data = props.data.filter(
+      (item) => {
+        return item.alleleName
           .toLowerCase()
-          .includes(searchFilter.value.toLowerCase()))
+          .includes(searchFilter.value.toLowerCase()) ||
+        item.hgvs.g.toLowerCase().includes(searchFilter.value.toLowerCase()) ||
+        item.hgvs.c.toLowerCase().includes(searchFilter.value.toLowerCase()) ||
+        item.hgvs.p.toLowerCase().includes(searchFilter.value.toLowerCase())
+    })
   }
 
   if (selectFilter.value) {
@@ -104,7 +109,7 @@ const handleRadioFilter = (filter) => {
 }
 
 const handleSelectFilter = (select) => {
-  console.log(select);
+  console.log(select)
   selectFilter.value = select
 }
 </script>
@@ -177,4 +182,3 @@ th.active .arrow {
   border-top: 4px solid #fff;
 }
 </style>
-

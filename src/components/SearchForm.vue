@@ -1,7 +1,11 @@
 <template>
   <form id="search">
     <div>
-      <input type="text" placeholder="Search" @input="search"/>
+      <input
+        type="text"
+        placeholder="Search by Variant Name or HGVS Notation"
+        @input="search"
+      />
     </div>
   </form>
 </template>
@@ -10,7 +14,7 @@
 const emit = defineEmits(['search'])
 
 const search = (e) => {
-    emit('search', e.target.value)
+  emit('search', e.target.value)
 }
 </script>
 
@@ -21,7 +25,7 @@ const search = (e) => {
 }
 
 input {
-  width: 200px;
+  width: 300px;
   padding: 12px 20px;
   margin: 8px 0;
   display: inline-block;

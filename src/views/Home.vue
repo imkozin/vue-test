@@ -33,7 +33,6 @@ const items = [
 ];
 
 const data = computed(() => {
-  console.log(userData);
   return userData.variants;
 });
 </script>
