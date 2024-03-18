@@ -76,18 +76,21 @@ const filteredData = computed(() => {
         return item.genotype.toLowerCase() === 'homozygote'
       })
       break
+    default:
+      data
   }
 
   if (searchFilter.value !== '') {
     console.log(searchFilter.value)
-    data = props.data.filter(
-      (item) => {
-        return item.alleleName
+    data = props.data.filter((item) => {
+      return (
+        item.alleleName
           .toLowerCase()
           .includes(searchFilter.value.toLowerCase()) ||
         item.hgvs.g.toLowerCase().includes(searchFilter.value.toLowerCase()) ||
         item.hgvs.c.toLowerCase().includes(searchFilter.value.toLowerCase()) ||
         item.hgvs.p.toLowerCase().includes(searchFilter.value.toLowerCase())
+      )
     })
   }
 
@@ -119,9 +122,11 @@ const handleSelectFilter = (select) => {
   display: flex;
   align-items: center;
   justify-content: space-between;
+  margin: 0 2em;
 }
 
 table {
+  width: 100vw;
   border: 2px solid #42b983;
   border-radius: 3px;
   background-color: #fff;
@@ -143,7 +148,7 @@ td {
 
 th,
 td {
-  min-width: 120px;
+  min-height: 120px;
   padding: 10px 20px;
 }
 
@@ -151,34 +156,5 @@ ul {
   list-style-type: none;
   padding: 0;
   margin: 0;
-}
-
-th.active {
-  color: #fff;
-}
-
-th.active .arrow {
-  opacity: 1;
-}
-
-.arrow {
-  display: inline-block;
-  vertical-align: middle;
-  width: 0;
-  height: 0;
-  margin-left: 5px;
-  opacity: 0.66;
-}
-
-.arrow.asc {
-  border-left: 4px solid transparent;
-  border-right: 4px solid transparent;
-  border-bottom: 4px solid #fff;
-}
-
-.arrow.dsc {
-  border-left: 4px solid transparent;
-  border-right: 4px solid transparent;
-  border-top: 4px solid #fff;
 }
 </style>
