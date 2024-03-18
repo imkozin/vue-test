@@ -1,69 +1,83 @@
 <template>
-    <div>
-        <div class="sort">
-            <SearchForm />
-            
-            <!-- <FilterGen />
+  <div>
+    <div class="sort">
+      <SearchForm @search="handleSearch" />
+
+      <!-- <FilterGen />
 
             <FilterSign /> -->
-        </div>
-        <table>
-            <thead>
-                <tr>
-                    <th v-for="item in items" :key="item.id">{{ item.title }}</th>
-                </tr>
-            </thead>
-            <tbody>
-                <tr v-for="variant in data" :key="variant.id">
-                    <td>{{ variant.alleleName }}</td>
-                    <td>{{ variant.significance }}</td>
-                    <td>{{ variant.genotype }}</td>
-                    <td>
-                    <ul>
-                        <li v-for="notation in variant.hgvs">{{ notation }}</li>
-                    </ul>
-                    </td>
-                    <td>
-                    <ul>
-                        <li
-                        v-for="source in variant.externalSourceEntries"
-                        :key="source.id"
-                        >
-                        <a :href="source.link" target="_blank">{{
-                            source.database.name
-                        }}</a>
-                        - Significance: {{ source.significance }}
-                        </li>
-                    </ul>
-                    </td>
-                </tr>
-            </tbody>
-        </table>
     </div>
+    <table>
+      <thead>
+        <tr>
+          <th v-for="item in items" :key="item.id">{{ item.title }}</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr v-for="variant in filteredVariants" :key="variant.id">
+          <td>{{ variant.alleleName }}</td>
+          <td>{{ variant.significance }}</td>
+          <td>{{ variant.genotype }}</td>
+          <td>
+            <ul>
+              <li v-for="notation in variant.hgvs">{{ notation }}</li>
+            </ul>
+          </td>
+          <td>
+            <ul>
+              <li
+                v-for="source in variant.externalSourceEntries"
+                :key="source.id"
+              >
+                <a :href="source.link" target="_blank">{{
+                  source.database.name
+                }}</a>
+                - Significance: {{ source.significance }}
+              </li>
+            </ul>
+          </td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
 </template>
 
 <script setup>
+import { computed, ref } from 'vue';
 import SearchForm from './SearchForm.vue';
 // import FilterGen from './FilterGen.vue';
 // import FilterSign from './FilterSign.vue';
 
+const searchFilter = ref('')
 
-defineProps({
+const props = defineProps({
     items: {
         type: Array,
         required: true
     },
     data: {
-        type: Array,
+        type: Object,
         required: true
     }
 })
+
+const filteredVariants = computed(()=> {
+  if (searchFilter !== '') {
+    return props.data.filter(item => item.alleleName.toLowerCase().includes(searchFilter.value.toLowerCase()))
+  }
+
+  return props.data
+})
+
+const handleSearch = (search) => {
+  searchFilter.value = search;
+}
 </script>
 
 <style scoped>
 .sort {
-    display: flex;
-    justify-content: space-between;
+  display: flex;
+  justify-content: space-between;
 }
 
 table {

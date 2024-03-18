@@ -7,8 +7,10 @@
 </template>
 
 <script setup>
+const emit = defineEmits(['search'])
+
 const search = (e) => {
-    emit('search')
+    emit('search', e.target.value)
 }
 </script>
 
