@@ -42,10 +42,11 @@
 </template>
 
 <script setup>
-import { computed, ref } from 'vue'
+import { computed, provide, ref } from 'vue'
 import SearchForm from './SearchForm.vue'
 import FilterDropDown from './FilterDropDown.vue'
 import FilterRadio from './FilterRadio.vue'
+
 
 const searchFilter = ref('')
 const radioFilter = ref('')
@@ -62,45 +63,39 @@ const props = defineProps({
   },
 })
 
-const filteredData = computed(() => {
-  let data = props.data
+provide('data', props.data)
 
-  switch (radioFilter.value) {
-    case 'heterozygote':
-      data = data.filter((item) => {
-        return item.genotype.toLowerCase() === 'heterozygote'
-      })
-      break
-    case 'homozygote':
-      data = data.filter((item) => {
-        return item.genotype.toLowerCase() === 'homozygote'
-      })
-      break
-    default:
-      data
+const filteredData = computed(() => {
+  let filteredData = [...props.data]
+
+  if (radioFilter.value === 'heterozygote') {
+    filteredData = filteredData.filter(
+      (item) => item.genotype.toLowerCase() === 'heterozygote'
+    )
+  } else if (radioFilter.value === 'homozygote') {
+    filteredData = filteredData.filter(
+      (item) => item.genotype.toLowerCase() === 'homozygote'
+    )
   }
 
   if (searchFilter.value !== '') {
-    console.log(searchFilter.value)
-    data = props.data.filter((item) => {
-      return (
-        item.alleleName
-          .toLowerCase()
-          .includes(searchFilter.value.toLowerCase()) ||
-        item.hgvs.g.toLowerCase().includes(searchFilter.value.toLowerCase()) ||
-        item.hgvs.c.toLowerCase().includes(searchFilter.value.toLowerCase()) ||
-        item.hgvs.p.toLowerCase().includes(searchFilter.value.toLowerCase())
-      )
-    })
+    const searchValue = searchFilter.value.toLowerCase()
+    filteredData = filteredData.filter(
+      (item) =>
+        item.alleleName.toLowerCase().includes(searchValue) ||
+        item.hgvs.g.toLowerCase().includes(searchValue) ||
+        item.hgvs.c.toLowerCase().includes(searchValue) ||
+        item.hgvs.p.toLowerCase().includes(searchValue)
+    )
   }
 
   if (selectFilter.value) {
-    data = data.filter((item) => {
-      return item.significance.toLowerCase() === selectFilter.value
-    })
+    filteredData = filteredData.filter(
+      (item) => item.significance.toLowerCase() === selectFilter.value
+    )
   }
 
-  return data
+  return filteredData
 })
 
 const handleSearch = (search) => {
@@ -143,12 +138,14 @@ th {
 }
 
 td {
+  height: 100px;
   background-color: #f9f9f9;
 }
 
 th,
 td {
-  min-height: 120px;
+  /* max-width: 100px;
+  max-height: 120px; */
   padding: 10px 20px;
 }
 
