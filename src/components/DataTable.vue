@@ -38,6 +38,7 @@
         </tr>
       </tbody>
     </table>
+    <div class="data" v-if="filteredData.length === 0">No data matches the applied filters</div>
   </div>
 </template>
 
@@ -46,7 +47,6 @@ import { computed, provide, ref } from 'vue'
 import SearchForm from './SearchForm.vue'
 import FilterDropDown from './FilterDropDown.vue'
 import FilterRadio from './FilterRadio.vue'
-
 
 const searchFilter = ref('')
 const radioFilter = ref('')
@@ -153,5 +153,11 @@ ul {
   list-style-type: none;
   padding: 0;
   margin: 0;
+}
+
+.data {
+  color: #42b983;
+  font-size: 3em;
+  margin: 0 auto;
 }
 </style>
