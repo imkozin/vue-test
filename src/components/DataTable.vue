@@ -1,5 +1,5 @@
 <template>
-  <div>
+  <div class="container">
     <div class="sort">
       <SearchForm @search="handleSearch" />
 
@@ -38,7 +38,9 @@
         </tr>
       </tbody>
     </table>
-    <div class="data" v-if="filteredData.length === 0">No data matches the applied filters</div>
+    <div class="data" v-if="filteredData.length === 0">
+      No data matches the applied filters
+    </div>
   </div>
 </template>
 
@@ -113,10 +115,16 @@ const handleSelectFilter = (select) => {
 </script>
 
 <style scoped>
+.container {
+  max-width: 100%;
+  overflow-x: auto;
+}
+
 .sort {
   display: flex;
   align-items: center;
-  justify-content: space-between;
+  justify-content: space-around;
+  flex-wrap: wrap;
   margin: 0 2em;
 }
 
@@ -157,7 +165,7 @@ ul {
 
 .data {
   color: #42b983;
-  font-size: 3em;
+  font-size: 2em;
   margin: 0 auto;
 }
 </style>

@@ -33,30 +33,36 @@
 </template>
 
 <script setup>
-import { jsPDF } from 'jspdf';
-import 'jspdf-autotable';
-import userData from './assets/variants.json';
+import { jsPDF } from 'jspdf'
+import 'jspdf-autotable'
+import userData from './assets/variants.json'
 
 const exportToPdf = () => {
-  const doc = new jsPDF();
+  const doc = new jsPDF()
 
-  const tableData = userData.variants.map(item => {
+  const tableData = userData.variants.map((item) => {
     return [
       item.alleleName,
       item.hgvs.g,
       item.hgvs.c,
       item.hgvs.p,
       item.genotype,
-      item.significance
-    ];
-  });
-  const headers = ['Variant Name', 'HGVS (g)', 'HGVS (c)', 'HGVS (p)', 'Genotype', 'Significance'];
+      item.significance,
+    ]
+  })
+  const headers = [
+    'Variant Name',
+    'HGVS (g)',
+    'HGVS (c)',
+    'HGVS (p)',
+    'Genotype',
+    'Significance',
+  ]
 
-  doc.autoTable({ head: [headers], body: tableData });
+  doc.autoTable({ head: [headers], body: tableData })
 
-  doc.save('data.pdf');
-};
-
+  doc.save('data.pdf')
+}
 </script>
 
 <style>
@@ -72,14 +78,6 @@ const exportToPdf = () => {
   height: 16px;
   fill: #fff;
   color: white;
-}
-
-#app {
-  font-family: Avenir, Helvetica, Arial, sans-serif;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
-  text-align: center;
-  color: #2c3e50;
 }
 
 nav {
