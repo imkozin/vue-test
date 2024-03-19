@@ -1,46 +1,13 @@
 <template>
-  <div class="main">
-    <DataTable :items="items" :data="data" />
+  <div>
+    <div>
+      <a href="/analyze">CPTKH6</a>
+      <p>23.11.2020</p>
+      Test Sample 01 S1 CFTR
+    </div>
   </div>
 </template>
 
-<script setup>
-import DataTable from "@/components/DataTable.vue";
-import { computed } from "vue";
-import userData from "../assets/variants.json";
+<script setup></script>
 
-const items = [
-  {
-    id: 1,
-    title: 'Variant Name',
-  },
-  {
-    id: 2,
-    title: 'Significance',
-  },
-  {
-    id: 3,
-    title: 'Genotype',
-  },
-  {
-    id: 4,
-    title: 'HGVS Notation',
-  },
-  {
-    id: 5,
-    title: 'External Sources',
-  },
-];
-
-const data = computed(() => {
-  return userData.variants;
-});
-</script>
-
-<style scoped>
-.main {
-  display: flex;
-  justify-content: center;
-  align-items: center;
-}
-</style>
+<style lang="scss" scoped></style>

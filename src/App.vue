@@ -1,9 +1,16 @@
 <template>
   <nav>
-    <router-link to="/">Home</router-link> |
-    <router-link to="/about">About</router-link>
+    <div>
+      <a class="logo">Parseq Tests</a>
+      <router-link to="/">Запуски</router-link> |
+      <router-link to="/analyze">Анализы</router-link>
+    </div>
+    <div>
+      <button>Загрузить данные</button>
+      <a>username</a>
+    </div>
   </nav>
-  <router-view/>
+  <router-view />
 </template>
 
 <style>
@@ -16,15 +23,42 @@
 }
 
 nav {
-  padding: 30px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  background-color: #2c3e50;
+  padding: 15px;
 }
 
-nav a {
+nav div {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+nav a,
+.logo {
+  text-transform: uppercase;
   font-weight: bold;
-  color: #2c3e50;
+  color: #f1f1f1;
+  margin: 0 20px;
 }
 
-nav a.router-link-exact-active {
-  color: #42b983;
+.logo {
+  font-size: 12px;
+  margin-right: 4em;
+}
+
+button {
+  color: #f1f1f1;
+  text-transform: uppercase;
+  background-color: #42b983;
+  padding: 8px 12px;
+  border-radius: 4px;
+  border: none;
+}
+
+button:hover {
+  background-color: cadetblue;
 }
 </style>
