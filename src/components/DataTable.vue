@@ -9,19 +9,33 @@
     <table>
       <thead>
         <tr>
-          <th v-for="item in items" :key="item.id">{{ item.title }}</th>
+          <th>Variant Name</th>
+          <th>Significance</th>
+          <th>Genotype</th>
+          <th colspan="3">HGVS Notation</th>
+          <th>External Sources</th>
         </tr>
+        <!-- <tr>
+          <th v-for="item in items" :key="item.id">{{ item.title }}</th>
+        </tr> -->
       </thead>
       <tbody>
-        <tr v-for="variant in filteredData" :key="variant.id">
-          <td>{{ variant.alleleName }}</td>
-          <td>{{ variant.significance }}</td>
-          <td>{{ variant.genotype }}</td>
+        <tr id="row" v-for="variant in filteredData" :key="variant.id">
           <td>
-            <ul>
-              <li v-for="notation in variant.hgvs">{{ notation }}</li>
-            </ul>
+            {{ variant.alleleName }}
           </td>
+          <td>{{ variant.significance }}</td>
+          <td>
+            {{ variant.genotype }}
+          </td>
+          <!-- <td>
+            <ul v-for="notation in variant.hgvs">
+                <li >{{ notation.c }}</li>
+              </ul>
+          </td> -->
+          <td>{{ variant.hgvs.g }}</td>
+          <td>{{ variant.hgvs.c }}</td>
+          <td>{{ variant.hgvs.p }}</td>
           <td>
             <ul>
               <li
@@ -155,6 +169,11 @@ td {
   /* max-width: 100px;
   max-height: 120px; */
   padding: 10px 20px;
+}
+
+tbody #row:hover td {
+  cursor: pointer;
+  background-color: #eaecee;
 }
 
 ul {

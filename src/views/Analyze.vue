@@ -1,6 +1,7 @@
 <template>
   <div class="main">
-    <DataTable :items="items" :data="data" />
+    <!-- <DataTable :items="items" :data="data" /> -->
+    <DataTable :data="data" />
   </div>
 </template>
 
