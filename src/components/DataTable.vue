@@ -79,8 +79,6 @@ const props = defineProps({
   },
 })
 
-provide('data', props.data)
-
 const filteredData = computed(() => {
   let filteredData = [...props.data]
 
